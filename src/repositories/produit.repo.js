@@ -1,5 +1,6 @@
 import Database from "../config/db.js";
 import { InterfaceRepository } from "./InterfaceRepository.js";
+import cloudinary from '../config/cloudinary';
 
 export default class ProduitRepository extends InterfaceRepository {
   constructor() {
@@ -26,6 +27,22 @@ export default class ProduitRepository extends InterfaceRepository {
   }
 
   async create(data) {
+
+    let mediaUrl;
+        if (file) {
+            const media = await new Promise((resolve, reject) => {
+                const uploadStream = cloudinary.uploader.upload_stream(
+                    { resource_type: 'auto' },
+                    (error, result) => {
+                        if (error) reject(error);
+                        else resolve(result);
+                    }
+                );
+                uploadStream.end(file.buffer);
+            });
+            mediaUrl = media.secure_url;
+        }
+
     return await this.model.create({
       data,
     });
