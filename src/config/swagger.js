@@ -52,6 +52,10 @@ const options = {
               example: 500000.0,
             },
             categorieId: { type: "integer", example: 1 },
+            image: {
+              type: "string",
+              example: "https://res.cloudinary.com/...",
+            },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" },
           },
@@ -118,7 +122,11 @@ const options = {
       },
     ],
   },
-  apis: ["./src/routes/*.js", "./src/controllers/*.js", "./src/config/swagger-annotations.js"],
+  apis: [
+    "./src/routes/*.js",
+    "./src/controllers/*.js",
+    "./src/config/swagger-annotations.js",
+  ],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

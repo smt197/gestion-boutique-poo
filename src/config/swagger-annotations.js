@@ -178,3 +178,110 @@
  *               items:
  *                 $ref: '#/components/schemas/Produit'
  */
+
+/**
+ * @swagger
+ * /api/produits/{id}:
+ *   get:
+ *     summary: Get a product by ID
+ *     tags: [Produits]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Product details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Produit'
+ *       404:
+ *         description: Product not found
+ */
+
+/**
+ * @swagger
+ * /api/produits:
+ *   post:
+ *     summary: Create a new product
+ *     tags: [Produits]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - libelle
+ *               - prixUnitaire
+ *               - categorieId
+ *             properties:
+ *               libelle:
+ *                 type: string
+ *               qteStock:
+ *                 type: integer
+ *               prixUnitaire:
+ *                 type: number
+ *               categorieId:
+ *                 type: integer
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: Product created successfully
+ */
+
+/**
+ * @swagger
+ * /api/produits/{id}:
+ *   put:
+ *     summary: Update an existing product
+ *     tags: [Produits]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               libelle:
+ *                 type: string
+ *               qteStock:
+ *                 type: integer
+ *               prixUnitaire:
+ *                 type: number
+ *               categorieId:
+ *                 type: integer
+ *               image:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Product updated successfully
+ */
+
+/**
+ * @swagger
+ * /api/produits/{id}:
+ *   delete:
+ *     summary: Delete a product
+ *     tags: [Produits]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       204:
+ *         description: Product deleted successfully
+ */

@@ -12,16 +12,21 @@
     "dev": "nodemon src/server.js"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.14.4",
+    "@cloudinary/url-gen": "^1.22.0",
     "@prisma/client": "^7.4.1",
     "@prisma/config": "^7.4.1",
+    "cloudinary": "^2.9.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "multer": "^2.0.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@prisma/adapter-pg": "^7.4.1",
     "@types/express": "^5.0.6",
+    "@types/multer": "^2.0.0",
     "nodemon": "^3.1.11",
     "pg": "^8.18.0",
     "prisma": "^7.4.1"

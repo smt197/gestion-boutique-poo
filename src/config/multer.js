@@ -1,16 +1,28 @@
-import multer from 'multer';
-import cloudinary from '../config/cloudinary';import path from 'path';
+import multer from "multer";
 
-const storage = multer.memoryStorage();
+export default class MulterConfig {
+  constructor() {
+    this.storage = multer.memoryStorage();
+    this.upload = multer({
+      storage: this.storage,
+      fileFilter: this.fileFilter,
+    });
+  }
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
-        cb(null, true);
+  fileFilter = (req, file, cb) => {
+    if (
+      file.mimetype.startsWith("image/") ||
+      file.mimetype.startsWith("video/")
+    ) {
+      cb(null, true);
     } else {
-        cb(new Error('Invalid file type. Only image and video files are allowed.'));
+      cb(
+        new Error("Invalid file type. Only image and video files are allowed."),
+      );
     }
-};
+  };
 
-const upload = multer({ storage, fileFilter });
-
-export default upload;
+  getUpload() {
+    return this.upload;
+  }
+}

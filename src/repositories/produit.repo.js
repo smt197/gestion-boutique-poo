@@ -1,6 +1,6 @@
 import Database from "../config/db.js";
 import { InterfaceRepository } from "./InterfaceRepository.js";
-import cloudinary from '../config/cloudinary';
+import cloudinary from "../config/cloudinary.js";
 
 export default class ProduitRepository extends InterfaceRepository {
   constructor() {
@@ -27,31 +27,36 @@ export default class ProduitRepository extends InterfaceRepository {
   }
 
   async create(data) {
-
-    let mediaUrl;
-        if (file) {
-            const media = await new Promise((resolve, reject) => {
-                const uploadStream = cloudinary.uploader.upload_stream(
-                    { resource_type: 'auto' },
-                    (error, result) => {
-                        if (error) reject(error);
-                        else resolve(result);
-                    }
-                );
-                uploadStream.end(file.buffer);
-            });
-            mediaUrl = media.secure_url;
-        }
-
     return await this.model.create({
-      data,
+      data: {
+        libelle: data.libelle,
+        qteStock: parseInt(data.qteStock) || 0,
+        prixUnitaire: parseFloat(data.prixUnitaire),
+        categorieId: parseInt(data.categorieId),
+        image: data.image || null,
+      },
+      include: {
+        categorie: true,
+      },
     });
   }
 
   async update(id, data) {
+    const updateData = {};
+    if (data.libelle) updateData.libelle = data.libelle;
+    if (data.qteStock !== undefined)
+      updateData.qteStock = parseInt(data.qteStock);
+    if (data.prixUnitaire !== undefined)
+      updateData.prixUnitaire = parseFloat(data.prixUnitaire);
+    if (data.categorieId) updateData.categorieId = parseInt(data.categorieId);
+    if (data.image) updateData.image = data.image;
+
     return await this.model.update({
       where: { id: parseInt(id) },
-      data,
+      data: updateData,
+      include: {
+        categorie: true,
+      },
     });
   }
 
