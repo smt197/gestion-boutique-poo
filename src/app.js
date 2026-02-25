@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import CategorieRoute from "./routes/categorie.routes.js";
-import ProduitRoute from "./routes/produit.routes.js";
+import Routes from "./routes/index.js";
 import { setupSwagger } from "./config/swagger.js";
 
 export default class App {
@@ -12,8 +11,7 @@ export default class App {
 
     setupSwagger(this.app);
 
-    this.app.use(`${this.uri}/categories`, new CategorieRoute().getRouter());
-    this.app.use(`${this.uri}/produits`, new ProduitRoute().getRouter());
+    this.route = new Routes(this.app);
   }
 
   getApp() {
